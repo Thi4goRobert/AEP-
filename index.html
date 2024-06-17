@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Estoque</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <!-- Navbar fixa no topo -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="#">Entrada De Produtos</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link " href="./dashboard.html"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                            </svg><span class="sr-only">(atual)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                                <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z" />
+                                <path
+                                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                            </svg></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="saida.html"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-houses-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.207 1a1 1 0 0 0-1.414 0L.146 6.646a.5.5 0 0 0 .708.708L1 7.207V12.5A1.5 1.5 0 0 0 2.5 14h.55a2.5 2.5 0 0 1-.05-.5V9.415a1.5 1.5 0 0 1-.56-2.475l5.353-5.354z" />
+                                <path
+                                    d="M8.793 2a1 1 0 0 1 1.414 0L12 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l1.854 1.853a.5.5 0 0 1-.708.708L15 8.207V13.5a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 4 13.5V8.207l-.146.147a.5.5 0 1 1-.708-.708z" />
+                            </svg></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="container" id="produtos">
+            <h2>Produtos</h2>
+            <label for="filtrar-tabela">Filtro:</label>
+            <input type="text" name="filtro" id="filtrar-tabela" placeholder="Digite o nome do produto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Código de Barras</th>
+                        <th>Categoria</th>
+                        <th>Data de Entrada</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-produtos">
+                    <!-- Produtos serão adicionados aqui -->
+                </tbody>
+            </table>
+
+            <span id="erro-ajax" class="invisivel">Erro ao buscar os produtos</span>
+            <button id="buscar-produtos" class="botao bto-principal">Buscar Produtos</button>
+        </section>
+    </main>
+    <section class="container">
+        <h2>Adicionar novo produto</h2>
+        <ul id="mensagens-erro"></ul>
+        <form id="form-adiciona">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input id="nome" name="nome" type="text" placeholder="Digite o nome do produto" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input id="quantidade" name="quantidade" type="number" placeholder="Digite a quantidade"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="codigo">Código de Barras:</label>
+                <input id="codigo" name="codigo" type="number" placeholder="Digite o código de barras"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="data-entrada">Data de Entrada:</label>
+                <input id="dataEntrada" name="data-entrada" type="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria" class="form-control">
+                    <option value="doação">Doação</option>
+                    <option value="compra">Compra</option>
+                </select>
+            </div>
+            <button class="botao bto-principal" id="adicionar-produto">Adicionar</button>
+        </form>
+    </section>
+    <section class="container">
+        <button id="salvar-produtos" class="botao bto-principal">Salvar Produtos</button>
+    </section>
+    <script src="js/estoque.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
